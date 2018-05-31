@@ -1,5 +1,5 @@
-export class InjectionToken {
-    constructor(public readonly name: string,
-                public readonly desc?: string) {
-    }
+export class InjectionToken<T> {
+	constructor(public readonly name: string,
+				public readonly desc?: string) {
+	}
 }
