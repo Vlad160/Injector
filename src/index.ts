@@ -1,13 +1,31 @@
 import 'reflect-metadata';
+import { injector } from './injector';
 import { Inject } from './decorators/inject';
-import { Injector } from './injector';
+import { UseProviders } from './decorators/useProviders';
 
 class Foo {
-	@Inject(Injector)
-	injector: Injector;
+
+	name = 'foooooo';
 
 }
 
-const foo = new Foo();
+class FakeFoo {
 
-console.log(foo.injector);
+	name = 'fakeFoo';
+}
+
+injector.provide(Foo, { useClass: Foo });
+
+@UseProviders(
+	{ token: Foo, provider: { useClass: FakeFoo } }
+)
+class Bar {
+	@Inject(Foo) foo;
+	name = 'foo2';
+}
+
+
+const bar = new Bar();
+
+console.log(bar.foo.name);
+

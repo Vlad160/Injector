@@ -5,6 +5,7 @@
     "sourceMap": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "outDir": "dist",
     "types": [
       "reflect-metadata"
     ],

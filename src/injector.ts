@@ -43,7 +43,7 @@ export class Injector {
 	}
 
 	private initialize<T>(provider: Provider<T>): T {
-		const resolveDeps = (deps: any[]) => deps.map((dep: any) => this.tryResolveInstance(dep));
+		const resolveDeps = (deps: any[]) => deps.map((dep: any) => this.get(dep));
 		const deps = resolveDeps((<any>provider).deps || []);
 		if (isUseClassProvider(provider)) {
 			return new provider.useClass(...deps);
