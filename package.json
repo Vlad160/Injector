@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jasmine-ts test/**/*.spec.ts",
     "start": "ts-node src/index.ts",
+    "build": "tsc -p ./tsconfig.json",
     "test:coverage": "nyc jasmine-ts test/**/*.spec.ts"
   },
   "repository": {
