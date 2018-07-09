@@ -1,7 +1,8 @@
 import { injector } from '../injector';
+import { Provider } from '../provider';
 
-export function Injectable() {
+export function Injectable(provider?: Provider<any>, localInjector = injector) {
 	return (target: any) => {
-		injector.provide(target, { useClass: target })
+		localInjector.provide(target, { useClass: target })
 	}
 }

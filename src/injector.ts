@@ -23,19 +23,27 @@ export class Injector {
 			catch (e) {
 			}
 		} while (injector = injector.parent);
+		return null;
 	}
 
-	provide<T>(token: Class<T> | InjectionToken<T>, provider: Provider<T>): void {
+	provide<T>(token: Class<T> | InjectionToken<T>, provider?: Provider<T>): void {
+		if (!provider) {
+			this._providers.set(token, { useClass: token });
+			return;
+		}
 		if (this._providers.has(token) && provider.multi) {
 			const existingProvider: T = this._providers.get(token);
 			if (Array.isArray(existingProvider)) {
-				this._providers.get(token).push(provider)
+				this._providers.get(token).push(provider);
 			} else {
 				this._providers.delete(token);
 				this._providers.set(token, [existingProvider, provider])
 			}
+			return;
+		} else if (this._providers.has(token) && !provider.multi) {
+			throw  new Error(`${token.toString()} is already provided!`);
 		}
-		this._providers.set(token, provider);
+		this._providers.set(token, provider.multi ? [provider] : provider);
 	}
 
 	fork(): Injector {

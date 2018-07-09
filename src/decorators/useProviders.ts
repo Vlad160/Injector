@@ -1,7 +1,8 @@
 import { Provider } from '../provider';
-import { injector } from '../injector';
 import { Class } from '../helpers';
 import { InjectionToken } from '../token';
+import { injectorToken } from '../constants';
+import { injector } from '../injector';
 
 export interface UseProviders {
 	provider: Provider<any>,
@@ -13,12 +14,13 @@ export function UseProviders<T>(...providers: UseProviders[]) {
 		if (!providers.length) {
 			return target;
 		}
-		const $injector = injector.fork();
-		providers.forEach((provider: UseProviders) => $injector.provide(provider.token, provider.provider));
-		Object.defineProperty(target, '$injector', {
+		let parentInjector = target[injectorToken] || injector;
+		let targetInjector = parentInjector.fork();
+		providers.forEach((provider: UseProviders) => targetInjector.provide(provider.token, provider.provider));
+		Object.defineProperty(target, injectorToken, {
 			configurable: false,
 			enumerable: false,
-			value: $injector
+			value: targetInjector
 		});
 		return target;
 	}

@@ -1,0 +1,53 @@
+{
+  "name": "injector",
+  "version": "0.0.1",
+  "description": "Simple injector",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine-ts test/**/*.spec.ts",
+    "start": "ts-node src/index.ts",
+    "test:coverage": "nyc jasmine-ts test/**/*.spec.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vlad160/Injector.git"
+  },
+  "author": "Uladzislau.Nestser",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vlad160/Injector/issues"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "lines": 75,
+    "statements": 75,
+    "functions": 75,
+    "branches": 75,
+    "include": [
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "**/*.d.ts"
+    ],
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "cache": true,
+    "all": true
+  },
+  "homepage": "https://github.com/Vlad160/Injector#readme",
+  "devDependencies": {
+    "@types/jasmine": "^2.8.8",
+    "jasmine": "^3.1.0",
+    "jasmine-ts": "^0.2.1",
+    "ts-node": "^6.0.5",
+    "typescript": "^2.8.4"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.1.12"
+  }
+}
